@@ -1,8 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Enable CORS for all routes
+app.use(cors());
 
 // Middleware for parsing JSON payloads
 app.use(express.json());
@@ -21,7 +25,7 @@ db.once('open', function() {
 // Import the contacts routes
 const contactsRouter = require('./routes/contacts');
 
-// Use the contacts router for requests to /contacts
+/// Use the contacts router for requests to /contacts
 app.use('/contacts', contactsRouter);
 
 // Root route - Sends 'Hello World!' when visited
@@ -29,7 +33,6 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });

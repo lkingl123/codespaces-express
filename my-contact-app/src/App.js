@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useState } from 'react';
+import ContactList from './components/ContactList';
+import ContactForm from './components/ContactForm'; // Make sure to import the ContactForm component
+import './App.css'; // Assuming you have this CSS file for styling
+
 
 function App() {
+
+    const [contacts, setContacts] = useState([]);
+  
+    // Function to add a new contact to the state
+    const addContact = (newContact) => {
+      setContacts([...contacts, newContact]);
+    };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Contacts</h1>
       </header>
+      <ContactForm onAddContact={addContact} />
+      <ContactList />
     </div>
   );
 }
