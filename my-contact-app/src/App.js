@@ -1,18 +1,23 @@
-// src/App.js
 import React, { useState } from 'react';
 import ContactList from './components/ContactList';
-import ContactForm from './components/ContactForm'; // Make sure to import the ContactForm component
-import './App.css'; // Assuming you have this CSS file for styling
+import ContactForm from './components/ContactForm';
 
+import './App.css';
 
 function App() {
+  const [contacts, setContacts] = useState([]);
 
-    const [contacts, setContacts] = useState([]);
-  
-    // Function to add a new contact to the state
-    const addContact = (newContact) => {
-      setContacts([...contacts, newContact]);
-    };
+  // Function to add a new contact to the state
+  const addContact = (newContact) => {
+    // Display an alert when the contact is added
+    window.alert(`Contact ${newContact.name} added successfully!`);
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+
+    setContacts([...contacts, newContact]);
+  };
 
   return (
     <div className="App">
@@ -20,7 +25,7 @@ function App() {
         <h1>Contacts</h1>
       </header>
       <ContactForm onAddContact={addContact} />
-      <ContactList />
+      <ContactList/>
     </div>
   );
 }
