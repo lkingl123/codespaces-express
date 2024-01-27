@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; // Import the useRef hook
 import axios from 'axios';
 import EditContact from './EditContact'; // Import the EditContact component
 
 const ContactList = () => {
   const [contacts, setContacts] = useState([]);
   const [editContact, setEditContact] = useState(null); // Track the contact being edited
-  const [showContacts, setShowContacts] = useState(true);
+  const [showContacts, setShowContacts] = useState(false);
+
 
   useEffect(() => {
     // Fetch the contacts when the component mounts
@@ -28,7 +29,24 @@ const ContactList = () => {
   const handleEditClick = (contact) => {
     // Set the contact being edited in the state
     setEditContact(contact);
+  
+    // Scroll to the bottom of the page when edit is clicked with smooth animation
+    const scrollToBottom = () => {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const scrollTop = document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const distance = scrollHeight - scrollTop - windowHeight;
+  
+      if (distance > 0) {
+        const step = distance / 10; // You can adjust the number of steps
+        window.scrollTo(0, scrollTop + step);
+        requestAnimationFrame(scrollToBottom);
+      }
+    };
+  
+    requestAnimationFrame(scrollToBottom);
   };
+  
 
   const handleDeleteClick = (contactId) => {
     // Implement the logic to delete a contact
@@ -84,6 +102,7 @@ const ContactList = () => {
               <h2>{contact.name}</h2>
               <p>Email: {contact.email}</p>
               <p>Phone: {contact.phone}</p>
+              <p>Address: {contact.address}</p>
               <button className="btn btn-primary me-2" onClick={() => handleEditClick(contact)}>
                 Edit
               </button>

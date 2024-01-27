@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 const EditContact = ({ editContact, onSave, onCancel }) => {
-  const [editedContact, setEditedContact] = useState(editContact);
+  // Add a condition to set an empty object if editContact is null
+  const [editedContact, setEditedContact] = useState(editContact || {});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +23,7 @@ const EditContact = ({ editContact, onSave, onCancel }) => {
           <input
             type="text"
             name="name"
-            value={editedContact.name}
+            value={editedContact.name || ''}
             onChange={handleChange}
           />
         </div>
@@ -31,7 +32,7 @@ const EditContact = ({ editContact, onSave, onCancel }) => {
           <input
             type="text"
             name="email"
-            value={editedContact.email}
+            value={editedContact.email || ''}
             onChange={handleChange}
           />
         </div>
@@ -40,7 +41,16 @@ const EditContact = ({ editContact, onSave, onCancel }) => {
           <input
             type="text"
             name="phone"
-            value={editedContact.phone}
+            value={editedContact.phone || ''}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Address:</label>
+          <input
+            type="text"
+            name="address"
+            value={editedContact.address || ''}
             onChange={handleChange}
           />
         </div>

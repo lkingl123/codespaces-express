@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const ContactForm = ({ onAddContact }) => {
-  const [contact, setContact] = useState({ name: '', email: '', phone: '' });
+  const [contact, setContact] = useState({ name: '', email: '', phone: '', address: '' });
   const [isAdding, setIsAdding] = useState(false); // State to track when adding is in progress
 
   const handleChange = (e) => {
@@ -18,7 +18,7 @@ const ContactForm = ({ onAddContact }) => {
         console.log('Contact added:', response.data);
         onAddContact(response.data);  // Update the parent component's state with the new contact
         setIsAdding(false); // Reset adding state to false
-        setContact({ name: '', email: '', phone: '' }); // Clear the form
+        setContact({ name: '', email: '', phone: '', address: '' }); // Clear the form
       })
       .catch(error => {
         console.error('Error adding contact:', error);
@@ -57,6 +57,16 @@ const ContactForm = ({ onAddContact }) => {
         onChange={handleChange}
         className="form-control"
         placeholder="Phone"
+        required
+      />
+    </div>
+    <div className="mb-3">
+      <input
+        name="address"
+        value={contact.address}
+        onChange={handleChange}
+        className="form-control"
+        placeholder="Address"
         required
       />
     </div>
